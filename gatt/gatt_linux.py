@@ -23,7 +23,7 @@ BUS_NAME = "de.nerade.gatt"
 OPATH = "/de/nerade/gatt"
 
 
-class DeviceManager:
+class DeviceManager(dbus.service.Object):
     """
     Entry point for managing BLE GATT devices.
 
