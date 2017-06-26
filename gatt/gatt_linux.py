@@ -1,6 +1,7 @@
 try:
     import dbus
     import dbus.mainloop.glib
+    import dbus.service
 except ImportError:
     import sys
     print("Module 'dbus' not found")
@@ -17,6 +18,9 @@ from . import errors
 
 dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
 dbus.mainloop.glib.threads_init()
+
+BUS_NAME = "de.nerade.gatt"
+OPATH = "/de/nerade/gatt"
 
 
 class DeviceManager:
@@ -207,6 +211,18 @@ class DeviceManager:
         """
         # TODO: Implement
         pass
+
+
+class StoppableDeviceManager(DeviceManager):
+
+    def __init__(self,adapter_name):
+        super().__init__(adapter_name)
+        
+        self._bus.request_name(BUS_NAME)
+        bus_name = dbus.service.BusName(BUS_NAME,bus=self._bus)
+        dbus.service.Object.__init__(self,bus_name,OPATH)
+
+        self._bus.add_signal_receiver(self.stop,"Stop")
 
 
 class Device:
