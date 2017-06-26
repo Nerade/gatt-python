@@ -216,7 +216,7 @@ class DeviceManagerMixin:
 class DeviceManager(DeviceManagerMixin):
     pass
 
-class StoppableDeviceManager(dbus.service.Object,DeviceManagerMixin):
+class StoppableDeviceManager(DeviceManagerMixin,dbus.service.Object):
 
     def __init__(self,adapter_name):
         super().__init__(adapter_name)
