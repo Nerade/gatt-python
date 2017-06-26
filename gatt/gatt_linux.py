@@ -213,7 +213,7 @@ class DeviceManagerMixin:
         # TODO: Implement
         pass
 
-class DeviceManager(DeviceManagerMixin,Object):
+class DeviceManager(DeviceManagerMixin):
     pass
 
 class StoppableDeviceManager(dbus.service.Object,DeviceManagerMixin):
