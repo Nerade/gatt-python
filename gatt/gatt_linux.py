@@ -23,7 +23,8 @@ BUS_NAME = "de.nerade.gatt"
 OPATH = "/de/nerade/gatt"
 
 
-class DeviceManager(dbus.service.Object):
+class DeviceManagerMixin:
+
     """
     Entry point for managing BLE GATT devices.
 
@@ -212,8 +213,10 @@ class DeviceManager(dbus.service.Object):
         # TODO: Implement
         pass
 
+class DeviceManager(DeviceManagerMixin,Object):
+    pass
 
-class StoppableDeviceManager(DeviceManager):
+class StoppableDeviceManager(dbus.service.Object,DeviceManagerMixin):
 
     def __init__(self,adapter_name):
         super().__init__(adapter_name)
